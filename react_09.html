@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+class ControlledInput extends React.Component{
+      constructor(props){
+          super(props);
+          this.state={value :''};
+          console.log(this.state);
+          this.handleChange=this.handleChange.bind(this);
+          this.handleClick=this.handleClick.bind(this);
+      }
+  
+ handleChange(event){
+      this.setState({value:event.target.value});
+      console.log(this.state);
+  }
+
+handleClick(event){
+    console.log("Clearing the input box value");
+    this.setState({value:''});
+}
+
+render(){
+    const buttonstyle={
+    padding:'0.25rem',
+    backgroundColor:'#638CFF',
+    color:'white',
+    textAlign:'center',
+    fontSize:'1rem'
+    };
+
+    return ( 
+     <div>
+     <h3>You are typing {this.state.value} </h3>
+     <label>Input Box Label</label>
+    <input type="text" value={this.state.value} onChange={this.handleChange} />
+    <div>
+    <button style={buttonstyle} onClick={this.handleClick}>Clear Input</button>
+    </div>
+    </div>
+    )
+    }
+  }
+
+ReactDOM.render(
+    <ControlledInput />,document.getElementById("root")
+)
+
+</script>
+</body>
+
+</html>

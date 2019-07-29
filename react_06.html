@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+class Details extends React.Component{
+    render(){
+        return (
+            <h2 style={{clear:'left'}}>{this.props.details}</h2>
+        ) 
+    }
+}
+ class Button extends React.Component{
+     render(){
+         return (
+             <div>
+             <button onClick={() => 
+             { console.log(this.props)
+             this.props.clickhandler(this.props.id,this.props.name)
+             }
+             } 
+             style={{ color: this.props.active ? 'red' : 'blue',display:'inline-block',float:'left',padding:'3px 10px 3px 10px',border:'1px solid black'}}>
+             {this.props.name}
+             </button>
+             </div>
+         )
+     }
+ }
+
+class  App extends React.Component{
+
+constructor(props){
+    super(props)
+    this.state={activeArray:[0,0,0,0],details:""};
+    this.clickHandle=this.clickHandle.bind(this);
+}
+
+clickHandle(id,details){
+    console.log("Inside the clickHandle ");
+    let arr=[0,0,0,0];
+    arr[id]=1;
+    console.log(arr,id,details);
+    this.setState({activeArray:arr,details:details});
+}
+
+  render(){
+    return (
+        <div>
+        <Button id={0} active={this.state.activeArray[0]} clickhandler={this.clickHandle} name="One"/>
+        <Button id={1} active={this.state.activeArray[1]} clickhandler={this.clickHandle} name="Two"/>
+        <Button id={2} active={this.state.activeArray[2]} clickhandler={this.clickHandle} name="Three"/>
+        <Button id={3} active={this.state.activeArray[3]} clickhandler={this.clickHandle} name="Four"/>
+        <Details details={this.state.details}/>
+        </div>
+    )
+  }
+   
+}
+
+ReactDOM.render(
+        <App/>,
+        document.getElementById("root")
+     )
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+ class Hello extends React.Component {
+     constructor(props){
+         super(props)
+         this.state={counter:0}
+         //binding is necessary to make `this` point to the correct object
+        this.handleClick = this.handleClick.bind(this)
+     }
+//setState method is asynchronous use callback function to display the values of setState method.
+     componentDidMount(){
+    this.setState({counter:this.state.counter + 5},()=>{
+        console.log(`curr value ${this.state.counter}`);
+    })
+  
+     }
+   
+   handleClick(){
+    this.setState((prevState,props)=>{
+        console.log(`prev value ${prevState.counter}`);
+        return {counter:prevState.counter + 1}
+    },()=>{
+        console.log(`curr value ${this.state.counter}`)
+    })
+
+   }
+   
+     render(){
+       return (
+           <div>
+           <div>
+           <h1>Hello Jogi </h1>
+           <h2>{this.props.message}</h2>
+           <h3>Counter value is : {this.state.counter} </h3>
+           </div>
+           <div>
+           <button onClick={this.handleClick} style={{color:'white',padding:'0.375rem 0.75rem',textAlign:'center',fontSize:'1rem',fontWeight:'400',border:'1px solid transparent',backgroundColor:'blue',display: 'inline-block'}}> Click Counter : {this.state.counter}</button>
+           </div>
+           </div>
+       )
+     }
+ }
+    ReactDOM.render(
+        <Hello message="I am Class Component" index={3} args={[1,2,3,4,5]}/>,
+        document.getElementById("root")
+     )
+    </script>
+</body>
+
+</html>
